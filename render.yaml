@@ -1,0 +1,54 @@
+# One-click deploy on Render (https://render.com): New > Blueprint > pick this repo.
+# A persistent disk is required because SQLite and uploaded photos live on it.
+services:
+  - type: web
+    name: meterproof
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    healthCheckPath: /healthz
+    disk:
+      name: meterproof-data
+      mountPath: /data
+      sizeGB: 5
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /data
+      - key: BASE_URL
+        sync: false # e.g. https://meterproof.co.za
+      - key: ADMIN_EMAILS
+        sync: false
+      - key: SUPPORT_EMAIL
+        sync: false
+      - key: BUSINESS_LEGAL_NAME
+        sync: false
+      - key: BUSINESS_ADDRESS
+        sync: false
+      - key: INFORMATION_OFFICER
+        sync: false
+      - key: PAYFAST_MODE
+        value: sandbox # change to "live" after testing
+      - key: PAYFAST_MERCHANT_ID
+        sync: false
+      - key: PAYFAST_MERCHANT_KEY
+        sync: false
+      - key: PAYFAST_PASSPHRASE
+        sync: false
+      - key: EFT_ACCOUNT_NAME
+        sync: false
+      - key: EFT_ACCOUNT_NUMBER
+        sync: false
+      - key: EFT_BRANCH_CODE
+        value: "250655"
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        sync: false
